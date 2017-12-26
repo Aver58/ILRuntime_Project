@@ -1,0 +1,8 @@
+
+.vs
+Assembly
+*.csproj
+Library
+ProjectSettings
+Temp
+obj
