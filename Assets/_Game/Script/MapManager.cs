@@ -49,7 +49,7 @@ public class MapManager : MonoBehaviour {
         {
             int num = UnityEngine.Random.Range(1, 19);
 
-            string path = "PNG/Tiles/Terrain/" + m.ToString() + "/" + m.ToString().ToLower() + "_" + num.ToString("d2");
+            string path = "Terrain/" + m.ToString() + "/" + m.ToString().ToLower() + "_" + num.ToString("d2");
             Sprite s = Resources.Load<Sprite>(path);
             item.GetComponent<Image>().sprite = s;
         }

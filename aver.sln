@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aver", "aver.csproj", "{592E4E8A-7E59-9D60-01CE-D105783FD547}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aver.Plugins", "aver.Plugins.csproj", "{68B979A1-ACE3-0A63-C84E-91069948342B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aver.Editor", "aver.Editor.csproj", "{57C2201F-FF7C-3382-3CE1-BB87BDF48E32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotFix_Project", "HotFix_Project\HotFix_Project.csproj", "{F6F32EB1-2463-48D6-AFA6-BBDB9AB4B75A}"
@@ -17,6 +19,10 @@ Global
 		{592E4E8A-7E59-9D60-01CE-D105783FD547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{592E4E8A-7E59-9D60-01CE-D105783FD547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{592E4E8A-7E59-9D60-01CE-D105783FD547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B979A1-ACE3-0A63-C84E-91069948342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B979A1-ACE3-0A63-C84E-91069948342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B979A1-ACE3-0A63-C84E-91069948342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B979A1-ACE3-0A63-C84E-91069948342B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{57C2201F-FF7C-3382-3CE1-BB87BDF48E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57C2201F-FF7C-3382-3CE1-BB87BDF48E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C2201F-FF7C-3382-3CE1-BB87BDF48E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
