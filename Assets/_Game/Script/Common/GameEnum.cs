@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameEnum
+namespace Common
 {
     public enum OperationCode : byte //区分请求和响应的类型 
     {

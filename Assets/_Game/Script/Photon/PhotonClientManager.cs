@@ -1,6 +1,7 @@
 ﻿using UnityEngine;  
 using System.Collections;  
 using ExitGames.Client.Photon;  
+using ExitGames.Client.Photon.Chat;
 using System;
 using System.Collections.Generic;
 
@@ -19,18 +20,11 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
   
     public string SeverIpAdress = "127.0.0.1:5055";// 连接工具PhotonPeer 要连接的IP地址和端口号 
   
-    public string SeverName = "Aver3";// 连接工具PhotonPeer 要连接的服务器名字  
+    public string SeverName = "LoadingBalance";// 连接工具PhotonPeer 要连接的服务器名字
+    
+
     #endregion
-    /// <summary>
-    /// 向服务器发送请求
-    /// </summary>
-    /// <param name="reqEnum"></param>
-    /// <param name="message"></param>
-    /// <param name="isArrial"></param>
-    public static void SendRequest(RequestEnum reqEnum, Dictionary<byte, object> message, bool isArrial)
-    {
-        peer.OpCustom((byte)reqEnum, message, isArrial);//photon构建通讯信息的方法，他发送的内容我们叫做请求参数，这个参数必须是一个字典
-    }
+  
     #region MonoBehaviour脚本原生方法  
     void Awake()
     {
@@ -76,6 +70,17 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
 
     #endregion
 
+    /// <summary>
+    /// 向服务器发送请求
+    /// </summary>
+    /// <param name="reqEnum"></param>
+    /// <param name="message"></param>
+    /// <param name="isArrial"></param>
+    public static void SendRequest(RequestEnum reqEnum, Dictionary<byte, object> message, bool isArrial)
+    {
+        peer.OpCustom((byte)reqEnum, message, isArrial);//photon构建通讯信息的方法，他发送的内容我们叫做请求参数，这个参数必须是一个字典
+    }
+
     #region photon接口方法  
 
     //当photonclient要输出debug时，会调用此方法  
@@ -99,19 +104,19 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     /// <param name="operationResponse"></param>
     public void OnOperationResponse(OperationResponse operationResponse)
     {
-        //把服务器返回的请求分发给对应的子类去处理
-        OperationCode opCode = (OperationCode)operationResponse.OperationCode;
-        Request request = null;
-        bool temp = RequestDict.TryGetValue(opCode, out request);
+        ////把服务器返回的请求分发给对应的子类去处理
+        //OperationCode opCode = (OperationCode)operationResponse.OperationCode;
+        //Request request = null;
+        //bool temp = RequestDict.TryGetValue(opCode, out request);
 
-        if (temp)
-        {
-            request.OnOperationResponse(operationResponse);
-        }
-        else
-        {
-            Debug.Log("没找到对应的响应处理对象");
-        }
+        //if (temp)
+        //{
+        //    request.OnOperationResponse(operationResponse);
+        //}
+        //else
+        //{
+        //    Debug.Log("没找到对应的响应处理对象");
+        //}
     }
 
     //当客户端状态改变时会调用此方法  

@@ -7,7 +7,7 @@ public class TestStart : MonoBehaviour {
 
     void Start()
     {
-        GameObject BtnStart = GameObject.Find("Canvas/Titles");
+        GameObject BtnStart = GameObject.Find("Canvas/Start");
         BtnStart.GetComponent<Button>().onClick.AddListener(() => { SendRequest(); });
     }
 
