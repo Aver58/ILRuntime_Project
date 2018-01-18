@@ -382,9 +382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23345c787fd2a24b9126ab12fce6400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionProtocol: 0
-  SeverIpAdress: 127.0.0.1:5055
-  SeverName: Aver3
 --- !u!1 &1599387783
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +510,7 @@ GameObject:
   - component: {fileID: 2068997707}
   - component: {fileID: 2068997708}
   m_Layer: 5
-  m_Name: Titles
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,7 +17,7 @@ namespace Common
         Failed //失败
     }
 
-    public enum ParameterCode : byte //区分传送数据的时候，参数的类型
+    public enum UserCode : byte //区分传送数据的时候，参数的类型
     {
         Username,//用户名
         Password,  //密码

@@ -4,7 +4,9 @@ using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.Chat;
 using System;
 using System.Collections.Generic;
-
+/// <summary>
+/// 通讯监听类的实例
+/// </summary>
 public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
 {
 
@@ -12,15 +14,15 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     
     private Dictionary<OperationCode, Request> RequestDict = new Dictionary<OperationCode, Request>();//所有请求的一个集合
 
-    public static PhotonClientManager Instance;// PhotonClientManager的单例模式 
+    public static PhotonClientManager Instance;                                                       // PhotonClientManager的单例模式 
  
-    public static PhotonPeer peer;// 连接PHTON服务器用的 连接工具 
+    public static PhotonPeer peer;                                                                    // 连接PHTON服务器用的 连接工具 
+
+    private ConnectionProtocol connectionProtocol = ConnectionProtocol.Udp;                           // 连接工具PhotonPeer 使用的协议 
   
-    public ConnectionProtocol connectionProtocol = ConnectionProtocol.Udp;// 连接工具PhotonPeer 使用的协议 
-  
-    public string SeverIpAdress = "127.0.0.1:5055";// 连接工具PhotonPeer 要连接的IP地址和端口号 
-  
-    public string SeverName = "LoadingBalance";// 连接工具PhotonPeer 要连接的服务器名字
+    private string SeverIpAdress = "127.0.0.1:5055";                                                  // 连接工具PhotonPeer 要连接的IP地址和端口号 
+
+    private string SeverName = "MyServer";                                                            // 连接工具PhotonPeer 要连接的服务器名字
     
 
     #endregion
@@ -73,13 +75,14 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     /// <summary>
     /// 向服务器发送请求
     /// </summary>
-    /// <param name="reqEnum"></param>
-    /// <param name="message"></param>
-    /// <param name="isArrial"></param>
+    /// <param name="reqEnum">请求枚举</param>
+    /// <param name="message">要发的信息</param>
+    /// <param name="isArrial">是否发送成功</param>
     public static void SendRequest(RequestEnum reqEnum, Dictionary<byte, object> message, bool isArrial)
     {
         peer.OpCustom((byte)reqEnum, message, isArrial);//photon构建通讯信息的方法，他发送的内容我们叫做请求参数，这个参数必须是一个字典
     }
+
 
     #region photon接口方法  
 
@@ -88,7 +91,12 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     {
 
     }
-    //服务器端向客户端发起数据的时候  
+
+
+    /// <summary>
+    /// 处理服务器广播的事件 响应SendEvent方法
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnEvent(EventData eventData)
     {
         switch (eventData.Code)
@@ -98,14 +106,48 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
                 break;
         }
     }
+
+    //当客户端状态改变时会调用此方法  
+    public void OnStatusChanged(StatusCode statusCode)
+    {
+        Debug.Log(statusCode);
+    }
+
     /// <summary>
     /// 客户端向服务器发起一个请求以后服务器处理完以后 就会给客户端一个响应
+    /// 响应服务端的SendOperationResponse方法
     /// </summary>
     /// <param name="operationResponse"></param>
     public void OnOperationResponse(OperationResponse operationResponse)
     {
-        ////把服务器返回的请求分发给对应的子类去处理
+        Dictionary<byte, object> dict = operationResponse.Parameters;
+        object v = null;
+        dict.TryGetValue(1, out v);
+        Console.WriteLine("Get value from server " + v.ToString());
+        switch (operationResponse.OperationCode)//处理服务器端作出的响应
+        {
+            case 1:
+                Dictionary<byte, object> data = operationResponse.Parameters;
+
+                object intValue;
+                object stringValue;
+                data.TryGetValue(1, out intValue);
+                data.TryGetValue(2, out stringValue);
+
+                Debug.Log(string.Format("客户端：接收服务器端发送的数据{0},{1} ", intValue, stringValue));
+
+                break;
+
+            case 2:
+
+                break;
+            default:
+
+                break;
+        }
+        //把服务器返回的请求分发给对应的子类去处理
         //OperationCode opCode = (OperationCode)operationResponse.OperationCode;
+
         //Request request = null;
         //bool temp = RequestDict.TryGetValue(opCode, out request);
 
@@ -118,17 +160,18 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
         //    Debug.Log("没找到对应的响应处理对象");
         //}
     }
-
-    //当客户端状态改变时会调用此方法  
-    public void OnStatusChanged(StatusCode statusCode)
-    {
-        Debug.Log(statusCode);
-    }
-
+    /// <summary>
+    /// 添加请求
+    /// </summary>
+    /// <param name="request"></param>
     public void AddRequest(Request request)
     {
         RequestDict.Add(request.OpCode, request);
     }
+    /// <summary>
+    /// 移除请求
+    /// </summary>
+    /// <param name="request"></param>
     public void RemoveRequest(Request request)
     {
         RequestDict.Remove(request.OpCode);
