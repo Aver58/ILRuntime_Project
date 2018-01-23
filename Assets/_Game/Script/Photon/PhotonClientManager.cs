@@ -79,7 +79,7 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     /// <param name="reqEnum">请求枚举</param>
     /// <param name="message">要发的信息</param>
     /// <param name="isArrial">是否发送成功</param>
-    public static void SendRequest(RequestEnum reqEnum, Dictionary<byte, object> message, bool isArrial)
+    public static void SendRequest(OperatedCode reqEnum, Dictionary<byte, object> message, bool isArrial)
     {
         peer.OpCustom((byte)reqEnum, message, isArrial);//photon构建通讯信息的方法，他发送的内容我们叫做请求参数，这个参数必须是一个字典
     }

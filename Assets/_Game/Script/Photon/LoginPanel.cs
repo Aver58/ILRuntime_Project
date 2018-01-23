@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LoginPanel : MonoBehaviour {
-    string name;
-    string psw;
     InputField username;
     InputField password;
     Text ResponseText;
@@ -20,12 +18,12 @@ public class LoginPanel : MonoBehaviour {
         password = GameObject.Find("Canvas/Login/password").GetComponent<InputField>();
         ResponseText = GameObject.Find("Canvas/Login/ResponseText").GetComponent<Text>();
 
-        GameObject BtnStart = GameObject.Find("Canvas/Start");
-        BtnStart.GetComponent<Button>().onClick.AddListener(() => { SendRequest(); });
+        //GameObject BtnStart = GameObject.Find("Canvas/Start");
+        //BtnStart.GetComponent<Button>().onClick.AddListener(() => { SendRequest(); });
         GameObject Login = GameObject.Find("Canvas/Login/Login");
         Login.GetComponent<Button>().onClick.AddListener(() => { OnLoginBtn(); });
         GameObject Register = GameObject.Find("Canvas/Login/Register");
-        Register.GetComponent<Button>().onClick.AddListener(() => { SendRequest(); });
+        Register.GetComponent<Button>().onClick.AddListener(() => { OnRegister(); });
 
         loginRequest = GetComponent<LoginRequest>();
     }
@@ -38,10 +36,6 @@ public class LoginPanel : MonoBehaviour {
         loginRequest.Username = username.text;
         loginRequest.Password = password.text;
         loginRequest.DefaultRequest();
-        //Dictionary<byte, object> data = new Dictionary<byte, object>();
-        //data.Add((byte)UserCode.Username, name);
-        //data.Add((byte)UserCode.Password, psw);
-        //PhotonClientManager.peer.OpCustom((byte)OperatedCode.Login, data, true);
         Debug.Log("OnLoginBtn");
     }
     /// <summary>
@@ -67,13 +61,12 @@ public class LoginPanel : MonoBehaviour {
     /// </summary>
     public void OnRegister()
     {
-        //goLoginPanel.SetActive(false);
-        //RegisterPanel.SetActive(true);
         ResponseText.text = "敬请期待";
 
     }
 
     /// <summary>
+    /// Test
     /// 向服务器发送请求
     /// </summary>
     void SendRequest()
