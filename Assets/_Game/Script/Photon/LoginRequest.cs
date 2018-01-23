@@ -19,6 +19,7 @@ public class LoginRequest : Request
     {
         base.Start();
         loginPanel = GetComponent<LoginPanel>();
+
     }
     /// <summary>
     /// 默认请求
@@ -34,7 +35,6 @@ public class LoginRequest : Request
     public override void OnOperationResponse(OperationResponse operationResponse)
     {
         ReturnCode returnCode = (ReturnCode)operationResponse.ReturnCode;
-
-        LoginPanel.OnLoginResponse(returnCode);
+        loginPanel.OnLoginResponse(returnCode);
     }
 }

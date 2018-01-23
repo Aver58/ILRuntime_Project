@@ -12,6 +12,8 @@ public class LoginPanel : MonoBehaviour {
     InputField password;
     Text ResponseText;
 
+    private LoginRequest loginRequest;
+
     void Start()
     {
         username = GameObject.Find("Canvas/Login/name").GetComponent<InputField>();
@@ -24,6 +26,8 @@ public class LoginPanel : MonoBehaviour {
         Login.GetComponent<Button>().onClick.AddListener(() => { OnLoginBtn(); });
         GameObject Register = GameObject.Find("Canvas/Login/Register");
         Register.GetComponent<Button>().onClick.AddListener(() => { SendRequest(); });
+
+        loginRequest = GetComponent<LoginRequest>();
     }
     /// <summary>
     /// 登录按钮
@@ -31,10 +35,13 @@ public class LoginPanel : MonoBehaviour {
     private void OnLoginBtn()
     {
         ResponseText.text = "";
-        name = username.text;
-        psw = password.text;
-        LoginRequest.DefaultRequest();
-
+        loginRequest.Username = username.text;
+        loginRequest.Password = password.text;
+        loginRequest.DefaultRequest();
+        //Dictionary<byte, object> data = new Dictionary<byte, object>();
+        //data.Add((byte)UserCode.Username, name);
+        //data.Add((byte)UserCode.Password, psw);
+        //PhotonClientManager.peer.OpCustom((byte)OperatedCode.Login, data, true);
         Debug.Log("OnLoginBtn");
     }
     /// <summary>

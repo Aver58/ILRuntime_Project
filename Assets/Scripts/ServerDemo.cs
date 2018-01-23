@@ -21,7 +21,7 @@ public class ServerDemo : MonoBehaviour
 			currentMsg += msg + "\r\n";
 		});
 		//开启服务器
-		NetUtility.Instance.ServerStart ();
+		NetUtility.Instance.ServerStart();
 	}
 
 	void OnGUI ()

@@ -4,6 +4,7 @@ using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.Chat;
 using System;
 using System.Collections.Generic;
+using Common;
 /// <summary>
 /// 通讯监听类的实例
 /// </summary>
@@ -12,7 +13,7 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
 
     #region 定义photon客户端设置需要的变量  
     
-    private Dictionary<OperationCode, Request> RequestDict = new Dictionary<OperationCode, Request>();//所有请求的一个集合
+    private Dictionary<OperatedCode, Request> RequestDict = new Dictionary<OperatedCode, Request>();//所有请求的一个集合
 
     public static PhotonClientManager Instance;                                                       // PhotonClientManager的单例模式 
  
@@ -120,10 +121,11 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
     /// <param name="operationResponse"></param>
     public void OnOperationResponse(OperationResponse operationResponse)
     {
+
         Dictionary<byte, object> dict = operationResponse.Parameters;
         object v = null;
         dict.TryGetValue(1, out v);
-        Console.WriteLine("Get value from server " + v.ToString());
+        //Console.WriteLine("Get value from server " + v.ToString());
         switch (operationResponse.OperationCode)//处理服务器端作出的响应
         {
             case 1:
@@ -139,26 +141,29 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
                 break;
 
             case 2:
+                Debug.Log(222);
+
 
                 break;
             default:
 
                 break;
         }
+
         //把服务器返回的请求分发给对应的子类去处理
-        //OperationCode opCode = (OperationCode)operationResponse.OperationCode;
+        OperatedCode opCode = (OperatedCode)operationResponse.OperationCode;
 
-        //Request request = null;
-        //bool temp = RequestDict.TryGetValue(opCode, out request);
+        Request request = null;
+        bool temp = RequestDict.TryGetValue(opCode, out request);
 
-        //if (temp)
-        //{
-        //    request.OnOperationResponse(operationResponse);
-        //}
-        //else
-        //{
-        //    Debug.Log("没找到对应的响应处理对象");
-        //}
+        if (temp)
+        {
+            request.OnOperationResponse(operationResponse);
+        }
+        else
+        {
+            Debug.Log("没找到对应的响应处理对象");
+        }
     }
     /// <summary>
     /// 添加请求

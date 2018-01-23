@@ -1,12 +1,11 @@
-﻿using ExitGames.Client.Photon;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Common;
+using ExitGames.Client.Photon;
 using UnityEngine;
 
 //客户端向服务器的请求
 public abstract class Request : MonoBehaviour
 {
-    public OperationCode OpCode;//请求类型
+    public OperatedCode OpCode;//请求类型
     public abstract void DefaultRequest();//默认的请求
 
     //服务器端返回的响应

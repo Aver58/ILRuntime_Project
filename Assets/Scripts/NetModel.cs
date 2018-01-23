@@ -8,8 +8,7 @@ public class NetModel : MonoBehaviour
 {
 	//数据体定义
 	[ProtoMember(1)]
-	public string 
-		senderIp;
+	public string senderIp;
 
 	[ProtoMember(2)]
 	public string
