@@ -9,14 +9,15 @@ using UnityEngine;
 public class LoginRequest : Request
 {
     [HideInInspector]
-    public string Username;
+    public string username;
     [HideInInspector]
-    public string Password;
+    public string password;
 
     private LoginPanel loginPanel;
 
     public override void Start()
     {
+        OpCode = OperatedCode.Login;
         base.Start();
         loginPanel = GetComponent<LoginPanel>();
 
@@ -27,8 +28,8 @@ public class LoginRequest : Request
     public override void DefaultRequest()
     {
         Dictionary<byte, object> data = new Dictionary<byte, object>();
-        data.Add((byte)UserCode.Username, Username);
-        data.Add((byte)UserCode.Password, Password);
+        data.Add((byte)UserCode.Username, username);
+        data.Add((byte)UserCode.Password, password);
         PhotonClientManager.peer.OpCustom((byte)OpCode, data, true);
     }
 

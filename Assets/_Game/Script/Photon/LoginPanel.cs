@@ -11,6 +11,7 @@ public class LoginPanel : MonoBehaviour {
     Text ResponseText;
 
     private LoginRequest loginRequest;
+    private RegisterRequest registerRequest;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class LoginPanel : MonoBehaviour {
         Register.GetComponent<Button>().onClick.AddListener(() => { OnRegister(); });
 
         loginRequest = GetComponent<LoginRequest>();
+        registerRequest = GetComponent<RegisterRequest>();
     }
     /// <summary>
     /// 登录按钮
@@ -33,8 +35,8 @@ public class LoginPanel : MonoBehaviour {
     private void OnLoginBtn()
     {
         ResponseText.text = "";
-        loginRequest.Username = username.text;
-        loginRequest.Password = password.text;
+        loginRequest.username = username.text;
+        loginRequest.password = password.text;
         loginRequest.DefaultRequest();
         Debug.Log("OnLoginBtn");
     }
@@ -62,9 +64,22 @@ public class LoginPanel : MonoBehaviour {
     public void OnRegister()
     {
         ResponseText.text = "敬请期待";
-
+        registerRequest.username = username.text;
+        registerRequest.password = password.text;
+        registerRequest.DefaultRequest();
+        Debug.Log("OnRegister");
     }
-
+    public void OnRegisterResponse(ReturnCode returnCode)
+    {
+        if (returnCode == ReturnCode.Success)
+        {
+            ResponseText.text = "注册成功，您可以登录了！";
+        }
+        else
+        {
+            ResponseText.text = "您已注册过了，请登录！";
+        }
+    }
     /// <summary>
     /// Test
     /// 向服务器发送请求

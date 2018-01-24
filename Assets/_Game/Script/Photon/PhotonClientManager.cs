@@ -142,17 +142,14 @@ public class PhotonClientManager : MonoBehaviour, IPhotonPeerListener
 
             case 2:
                 Debug.Log(222);
-
-
                 break;
             default:
-
                 break;
         }
 
         //把服务器返回的请求分发给对应的子类去处理
         OperatedCode opCode = (OperatedCode)operationResponse.OperationCode;
-
+        Debug.Log("opCode:" + opCode);
         Request request = null;
         bool temp = RequestDict.TryGetValue(opCode, out request);
 
